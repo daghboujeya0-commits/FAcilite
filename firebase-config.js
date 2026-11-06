@@ -5,7 +5,7 @@ import { initializeApp } from "firebase/app";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyCy1Cpo56GZaQpmMqJKBjDmU0GEfZvIccM",
   authDomain: "facilite-35634.firebaseapp.com",
   projectId: "facilite-35634",
@@ -15,6 +15,6 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);// Adresse Gmail du tout premier chef de projet (elle crée son propre profil à la 1re connexion).
+export const app = initializeApp(firebaseConfig);// Adresse Gmail du tout premier chef de projet (elle crée son propre profil à la 1re connexion).
 // La même adresse doit être mise dans firestore.rules.
 export const CHEF_EMAIL ="daghboujeya0@gmail.com";
