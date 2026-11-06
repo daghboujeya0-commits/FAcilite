@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FAcilite – HEC’FA</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light;box-sizing:border-box}
+*{box-sizing:inherit}
+body{margin:0;background:#fff;color:#111;font:16px/1.45 'EB Garamond',Georgia,serif;font-variant:small-caps}
+.app{border:3px solid #f4dcdc;min-height:100vh;display:flex;flex-direction:column}
+header{background:#f04480;padding:6px 0;text-align:center;position:relative}
+header h1{display:inline-block;margin:0;background:#fff;color:#555;width:235px;max-width:80%;padding:2px 0;font-size:20px;font-weight:400;cursor:pointer}
+header .fa{font-size:25px}
+main{flex:1;padding:18px 28px}
+.band0{background:#8f689b;min-height:108px;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:10px}
+footer{background:#e3e2f3;min-height:38px;padding:8px 14px;font-size:14px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}
+button,select,input,textarea{font:inherit;color:#111}
+.b{background:#d8edff;border:0;padding:10px 22px;font-variant:small-caps;font-size:15px;cursor:pointer;border-radius:0}
+.b:focus-visible,.s:focus-visible{outline:2px solid #f04480}
+.y{background:#f9f7c0}.r{background:#f4dcdc}.on{outline:2px solid #8f689b}
+.row{display:flex;gap:26px;flex-wrap:wrap;justify-content:center;margin:26px 0}
+.s{background:none;border:0;cursor:pointer;padding:0 3px;font-size:16px}
+.lab{display:inline-block;background:#f9f7c0;padding:8px 18px;font-variant:small-caps;font-size:15px}
+.home{display:flex;gap:30px;align-items:center;justify-content:center;flex-wrap:wrap;margin:6px 0 24px}
+.tag{color:#503756;font-weight:600;font-size:17px;text-align:right;line-height:1.2}
+.logo{width:235px;max-width:100%;display:block}
+.card{border:1px solid #f4dcdc;padding:10px 16px;margin:14px 0}
+.card h4{margin:0 0 4px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;font-weight:600;font-size:17px}
+.card h4 small{opacity:.7;font-weight:400}.pt{margin-left:auto}
+.bar{height:11px;background:#e3e2f3;margin:6px 0}
+.bar i{display:block;height:100%;background:#8f689b;transition:width .5s}
+.tr{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:3px 0}
+.tr span{flex:1;min-width:110px}.tr .dn{text-decoration:line-through;opacity:.6}.tr small{opacity:.7}
+input[type=checkbox]{width:16px;height:16px;accent-color:#8f689b}
+input:not([type=checkbox]),select{background:#f4dcdc;border:0;padding:7px 10px;border-radius:0;max-width:100%;font-variant:normal}
+textarea{background:#d9d9d9;border:0;width:100%;min-height:150px;padding:10px;font-variant:normal;resize:vertical}
+.form{display:grid;grid-template-columns:auto 250px;gap:18px 14px;justify-content:center;align-items:center;margin:26px 0}
+.form label{text-align:right}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:28px}@media(max-width:700px){.two{grid-template-columns:1fr}}
+.ov{position:fixed;inset:0;background:#0006;display:flex;align-items:center;justify-content:center;z-index:50;padding:16px}
+.mod{background:#fff;padding:24px;max-width:360px;text-align:center;border:3px solid #f4dcdc}
+.mod .b{display:block;width:100%;margin:12px 0}
+.em{position:fixed;top:-40px;font-size:28px;z-index:60;pointer-events:none;animation:fall 2.4s ease-in forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(40deg)}}
+@media(prefers-reduced-motion:reduce){.em{animation-duration:.01s}}
+.msg{border-bottom:1px solid #f4dcdc;padding:8px 0;font-variant:normal}.hint{font-size:14px;opacity:.75}
+#motd{background:#f9f7c0;text-align:center;padding:6px}
+.env{position:relative}.env .snd{position:absolute;right:10px;bottom:8px;background:none;border:0;cursor:pointer;font-size:15px}
+.snow{display:inline-flex;width:15px;height:15px;background:#fff;color:#1b8fd6;font-size:11px;align-items:center;justify-content:center;font-variant:normal}
+.gbtn{background:#fff;border:1px solid #dadce0;color:#3c4043;padding:9px 22px;font-size:15px;display:inline-flex;gap:10px;align-items:center;cursor:pointer;border-radius:4px;font-family:Arial,sans-serif;font-variant:normal;box-shadow:0 1px 2px #0002}
+.pre{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;padding:14px 0}
+.slog{color:#fff;font-size:20px;font-weight:600;text-align:center;line-height:1.25}.flw{font-size:28px}
+.logoc{display:block;margin:6px auto 30px;width:235px;max-width:100%}
+.card h4{align-items:center}
+.av{border-radius:50%;object-fit:cover;background:#e3e2f3;color:#503756;display:inline-flex;align-items:center;justify-content:center;flex:none;font-variant:normal;font-weight:600}
+.tf{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+#newsb{background:#d8edff;text-align:center;padding:6px}
+main{width:100%;max-width:1200px;margin:0 auto}img,textarea{max-width:100%}
+.form input,.form select{width:100%}
+@media(max-width:800px){.tf{grid-template-columns:1fr}}
+@media(max-width:600px){main{padding:14px 12px}.row{gap:12px}.form{grid-template-columns:1fr;gap:6px}.form label{text-align:left;margin-top:8px}.b{padding:10px 14px;font-size:14px}header h1{font-size:17px}.slog{font-size:17px}.tr input:not([type=checkbox]){flex:1;min-width:120px}}
+</style></head><body><div class="app">
+<header><h1 onclick="go('home')"><span class="fa">FA</span>cilite</h1><span class="snow" style="position:absolute;right:12px;top:50%;transform:translateY(-50%)">❄</span></header>
+<div id="motd" hidden></div><div id="newsb" hidden></div>
+<main id="main"></main>
+<div class="pre" id="pre"></div>
+<div class="band0" id="pu"></div>
+<footer id="ft"></footer></div>
+<div id="ovh"></div>
+<script>
+const T=new Date().toISOString().slice(0,10),Y=new Date(Date.now()-864e5).toISOString().slice(0,10),KEY='facilite_v1';
+const D=['Logistique','Communication','Sponsoring','Recherche & Analyse','RH'];
+const RL={chef:'Chef de projet',vis:'Vis-à-vis',assist:'Assistant',membre:'Membre'};
+const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let S,V='home',ED=null,AR=null,uid=()=>Date.now()+Math.floor(Math.random()*999);
+function load(){S={users:[],tasks:[],depts:Object.fromEntries(D.map(d=>[d,{m:'',o:''}])),me:null,msgs:[],notes:{},votes:[],motd:null,news:[],notifs:[],stats:{},proto:''}}
+function save(){}
+const U=i=>S.users.find(u=>u.id==i),me=()=>U(S.me),isChef=()=>me()?.role=='chef',isMgr=()=>me()&&me().role!='membre';
+const manages=d=>isChef()||(isMgr()&&me().dept==d),mine=u=>S.tasks.filter(t=>t.uid==u);
+const score=u=>S.stats[u]?.score||0;
+const ub=u=>{const d=S.stats[u]?.days?.[T];return d&&d[0]?Math.round(100*d[1]/d[0]):0};
+const dpc=d=>{let a=0,b=0;S.users.filter(u=>u.dept==d).forEach(u=>{const x=S.stats[u.id]?.days?.[T];if(x){a+=x[0];b+=x[1]}});return a?Math.round(100*b/a):0};
+const pct=l=>{l=l.filter(t=>t.due==T);return l.length?Math.round(100*l.filter(t=>t.done).length/l.length):0};
+const dT=d=>S.tasks.filter(t=>U(t.uid)?.dept==d),dS=d=>S.users.filter(u=>u.dept==d).reduce((a,u)=>a+score(u.id),0);
+const band=p=>`<div class="bar" title="${p}%"><i style="width:${p}%"></i></div>`;
+const GSVG='<svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.6 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.2 5.5-4.7 7.2l7.5 5.8c4.4-4 7-10 7-17.5z"/><path fill="#FBBC05" d="M10.5 28.7c-.5-1.5-.8-3-.8-4.7s.3-3.2.8-4.7l-7.9-6.1C.9 16.4 0 20.1 0 24s.9 7.6 2.6 10.8l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.5-5.8c-2.1 1.4-4.8 2.3-8.4 2.3-6.3 0-11.6-4.1-13.5-9.8l-7.9 6.1C6.5 42.6 14.6 48 24 48z"/></svg>';
+const bk=(v,l)=>`<button class="b" onclick="go('${v}')">${l}</button>`;
+let DEL=null,GATE=null;const LS={g:k=>{try{return localStorage.getItem(k)}catch(e){}},s:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}}};
+function show(v){if(!V_[v])v='home';if(!S.me&&!['home','gate'].includes(v)){modal();v='home'}V=v;ED=null;AR=null;DEL=null;draw()}
+function go(v){show(v);try{if(location.hash.slice(1)!==V)location.hash=V}catch(e){}}
+const RN={chef:'chef projet',vis:'vis à vis/assistant',assist:'assistant',membre:'membre'};
+const roles=()=>`<div class="row" style="margin:0 0 20px">${['chef','vis','membre'].map(k=>`<button class="b y ${AR==k?'on':''}" onclick="AR='${k}';draw()">${RN[k]}</button>`).join('')}</div>`;
+const form=(r,fn,lab)=>`<div><div class="form" style="margin:0 0 20px">${r!='chef'?`<label for="ad">département :</label><select id="ad">${D.map(d=>`<option>${d}</option>`).join('')}</select>`:''}${fn=='addU()'&&r=='vis'?`<label for="rp">poste :</label><select id="rp"><option value="vis">vis à vis</option><option value="assist">assistant</option></select>`:''}<label for="an">nom et prénom :</label><input id="an"><label for="ae">adresse Gmail :</label><input id="ae" type="email"><label for="ap">mot de passe :</label><input id="ap" ${fn=='login()'?'type="password"':''}></div><div style="text-align:center"><button class="b" onclick="${fn}">${lab}</button></div></div>`;
+function modal(){$('#ovh').innerHTML=`<div class="ov"><div class="mod"><h3>Continuer avec Google</h3><p>Connexion unique : ensuite, accès direct.</p><button class="gbtn" style="margin:12px auto" onclick="$('#ovh').innerHTML='';FB.signIn()">${GSVG}<span>Continuer avec Google</span></button><button class="s" onclick="$('#ovh').innerHTML=''">Annuler</button></div></div>`}
+function logout(){FB.signOut().then(()=>{location.hash='';location.reload()})}
+function ding(i){try{const c=new(window.AudioContext||window.webkitAudioContext)(),b=[440,494,523,587,659,698,784][i%7];[1,1.25,1.5,2].forEach((m,j)=>{const o=c.createOscillator(),g=c.createGain(),t=c.currentTime+j*.09;o.frequency.value=b*m;o.connect(g);g.connect(c.destination);g.gain.setValueAtTime(.15,t);g.gain.exponentialRampToValueAtTime(.001,t+.25);o.start(t);o.stop(t+.3)})}catch(e){}}
+function rain(){const E=['😊','😄','😁','🥳','😍'];for(let i=0;i<22;i++){const s=document.createElement('span');s.className='em';s.textContent=E[i%5];s.style.left=Math.random()*95+'vw';s.style.animationDelay=Math.random()*.8+'s';document.body.appendChild(s);setTimeout(()=>s.remove(),3500)}}
+function recalc(u){const x=U(u);if(!x)return;const l=S.tasks.filter(t=>t.uid==u),days={};l.forEach(t=>{const d=days[t.due]=days[t.due]||[0,0];d[0]++;if(t.done)d[1]++});const d={uid:u,dept:x.dept,score:l.reduce((a,t)=>a+(t.stars||0),0),days};S.stats[u]=d;FB.set('stats',x.email,d)}
+function tog(i){const t=S.tasks.find(x=>x.id==i);if(!t||t.uid!=S.me)return;t.done=!t.done;FB.set('tasks',''+i,{done:t.done},1);recalc(t.uid);if(t.done){ding(i%7);rain()}draw()}
+function star(i,n){const t=S.tasks.find(x=>x.id==i);t.stars=t.stars==n?0:n;FB.set('tasks',''+i,{stars:t.stars},1);recalc(t.uid);draw()}
+function del(i){const t=S.tasks.find(x=>x.id==i);S.tasks=S.tasks.filter(x=>x.id!=i);FB.del('tasks',''+i);recalc(t.uid);draw()}
+function saveT(i){const t=S.tasks.find(x=>x.id==i);t.t=$('#et').value||t.t;t.due=$('#ed').value||t.due;ED=null;FB.set('tasks',''+i,{t:t.t,due:t.due},1);recalc(t.uid);draw()}
+function addT(u){const v=$('#nt'+u).value.trim();if(!v)return;const x=U(u),t={id:uid(),uid:u,owner:x.email,dept:x.dept,t:v,due:$('#nd'+u).value||T,done:false,stars:0};S.tasks.push(t);FB.set('tasks',''+t.id,t);recalc(u);draw()}
+const stars=t=>[1,2,3,4,5].map(n=>`<button class="s" aria-label="${n} étoile" onclick="star(${t.id},${n})">${n<=t.stars?'★':'☆'}</button>`).join('');
+function row(t,mgr){if(ED==t.id&&mgr)return`<div class="tr"><input id="et" value="${esc(t.t)}"><input id="ed" type="date" value="${t.due}"><button class="b" onclick="saveT(${t.id})">Enregistrer</button></div>`;
+const own=t.uid==S.me;return`<div class="tr"><input type="checkbox" aria-label="Tâche faite" ${t.done?'checked':''} ${own?`onchange="tog(${t.id})"`:'disabled'}><span class="${t.done?'dn':''}">${esc(t.t)}${!t.done&&t.due<T?' <b style="color:#c0245a;font-variant:normal">⏰ en retard</b>':''}</span><small>${t.due}</small>${mgr?stars(t)+`<button class="s" aria-label="Modifier" onclick="ED=${t.id};draw()">✎</button><button class="s" aria-label="Supprimer" onclick="del(${t.id})">✕</button>`:`<small>${'★'.repeat(t.stars)}</small>`}</div>`}
+const av=(u,z)=>u.photo?`<img class="av" style="width:${z}px;height:${z}px" src="${u.photo}" alt="">`:`<span class="av" style="width:${z}px;height:${z}px;font-size:${Math.round(z/2.4)}px">${esc(u.name.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase())}</span>`;
+const editsD=d=>me()&&['vis','assist'].includes(me().role)&&me().dept==d;
+function ucard(u,can){const l=mine(u.id);return`<div class="card"><h4>${av(u,36)}<span>${esc(u.name)}</span> <small>${esc(u.dept)}</small><span class="pt">⭐ ${score(u.id)} pts</span></h4>${band(ub(u.id))}${l.map(t=>row(t,can)).join('')||'<p class="hint">Aucune tâche pour le moment.</p>'}${can?`<div class="tr"><input id="nt${u.id}" placeholder="Nouvelle tâche"><input id="nd${u.id}" type="date" value="${T}"><button class="b" onclick="addT(${u.id})">Ajouter</button></div>`:''}</div>`}
+const V_={
+home(){return`<img class="logoc" alt="HEC’FA – HEC Finance Academy" src="logo-hecfa.png">
+<div class="row" style="margin:0 0 20px"><button class="gbtn" onclick="FB.signIn()">${GSVG}<span>Se connecter avec Google</span></button></div>
+<div class="row" style="margin:0 0 20px">${S.me?bk('dash','mon espace'):'<button class="b" onclick="FB.signIn()">s’authentifier</button>'}${bk('day','avancement par jour')}${bk('dept','mission/département')}</div>`},
+gate(){const g=GATE;if(!g)return V_.home();return`<div style="display:flex;gap:40px;flex-wrap:wrap;justify-content:center;align-items:flex-start;margin-top:30px"><span class="lab">${g.boot?'chef projet (première connexion)':RN[g.p.role]+' : '+esc(g.p.name)}</span><div><div class="form" style="margin:0 0 20px">${g.boot?'<label for="gn">nom et prénom :</label><input id="gn">':''}<label for="gp">mot de passe :</label><input id="gp" type="password" onkeydown="if(event.key==\'Enter\')unlock()"></div><div style="text-align:center"><button class="b" onclick="unlock()">se connecter</button></div></div></div>`},
+dash(){const m=me(),k=myN().filter(n=>!n.seen.includes(S.me)).length,ph=`<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:10px 0">${av(m,64)}<input type="file" id="pf" accept="image/*" hidden onchange="photo(this)"><button class="b" onclick="$('#pf').click()">${m.photo?'changer la photo':'ajouter une photo'}</button></div>`;
+if(m.role=='membre')return`<div class="two"><div><span class="lab">membre : ${esc(m.name)}</span>${ph}<p style="margin:8px 0 0">⭐ ${score(m.id)} pts · ${esc(m.dept)}</p>${band(ub(m.id))}<div style="margin:20px 0 10px"><span class="lab" style="background:#d8edff">tâches :</span></div>${mine(m.id).map(t=>row(t,false)).join('')||'<p class="hint">Aucune tâche.</p>'}</div>
+<div><div class="card" style="background:#f4dcdc;border:0;text-align:center;margin-top:0">proposer une idée/avoir un problème/une question/une contrainte</div><div class="env"><textarea id="mx" aria-label="Message"></textarea><button class="snd" onclick="sendMsg()">envoyer</button></div><div class="row"><button class="b" onclick="go('notes')">notes</button></div></div></div>`;
+return`<span class="lab">${m.role=='chef'?'chef projet : '+esc(m.name):RN.vis+' ('+esc(m.name)+')'}</span>${ph}<div class="row" style="margin:40px 0">${isChef()?bk('add','ajouter membre'):''}${bk('work','suivre le travail')}${bk('msgs','messages reçus')}${bk('notifs','notifications'+(k?' ('+k+')':''))}${bk('notes','notes')}</div>${isChef()?`<div class="row" style="margin:0"><span>membre du jour : <select id="mo">${S.users.filter(u=>u.role!='chef').map(u=>`<option value="${u.id}">${esc(u.name)}</option>`).join('')}</select></span><button class="b r" onclick="setMotd()">annoncer</button></div>`:''}`},
+work(){const l=S.users.filter(u=>u.role=='membre'&&(isChef()||u.dept==me().dept));return`<span class="lab">Suivre le travail</span><div class="row">${bk('dept','Missions et objectifs du département')}</div>${l.map(u=>ucard(u,true)).join('')||'<p>Aucun membre dans votre département.</p>'}`},
+dept(){return`<span class="lab">mission/département</span>${D.map((d,i)=>{const x=S.depts[d];return`<div class="card"><h4>${d}<span class="pt">⭐ ${dS(d)} pts</span></h4>${band(dpc(d))}${editsD(d)?`<label>missions</label><textarea id="m${i}">${esc(x.m)}</textarea><label>objectifs</label><textarea id="o${i}">${esc(x.o)}</textarea><button class="b" onclick="saveD(${i})">Enregistrer</button>`:`<p><b>missions :</b> ${esc(x.m)||'–'}</p><p><b>objectifs :</b> ${esc(x.o)||'–'}</p><p class="hint">Modifiable uniquement par le vis à vis de ce département.</p>`}</div>`}).join('')}`},
+day(){return`<span class="lab">Avancement par jour · ${T}</span>${D.map(d=>`<div class="card"><h4>${d}<span class="pt">⭐ ${dS(d)} pts</span></h4>${band(dpc(d))}${S.users.filter(u=>u.role=='membre'&&u.dept==d).map(u=>{const l=mine(u.id).filter(t=>t.due==T);return`<div style="margin-top:10px"><b>${esc(u.name)}</b> <span class="pt" style="float:right">⭐ ${score(u.id)}</span>${band(ub(u.id))}${S.me?l.map(t=>row(t,manages(d))).join(''):''}</div>`}).join('')}</div>`).join('')}`},
+team(){const l=S.users.filter(u=>u.role=='membre').sort((a,b)=>score(b.id)-score(a.id)),st=S.users.filter(u=>u.role!='membre'),mg=isMgr();
+return`<span class="lab">annonces</span>${mg?`<div class="tr" style="margin:10px 0"><input id="nn" placeholder="Annoncer une nouvelle à tout le monde" style="flex:1"><button class="b" onclick="addN()">annoncer</button></div>`:''}
+${S.news.map(n=>`<div class="msg">📢 ${esc(n.text)} <small>— ${esc(n.by)}, ${n.date}</small>${mg?`<button class="s" aria-label="Supprimer l’annonce" onclick="delN(${n.id})">✕</button>`:''}</div>`).join('')||'<p class="hint">Aucune annonce.</p>'}
+<div class="tf" style="margin-top:24px"><div class="card" style="border:2px solid #8f689b;margin:0"><h4>teamFA</h4>${l.map(u=>`<div style="padding:8px 0;border-top:1px solid #f4dcdc"><div class="tr" style="gap:10px">${av(u,40)}<span><b>${S.motd?.uid==u.id&&S.motd.date==T?'🌸 ':''}${esc(u.name)}</b><br><small>${u.role=='chef'?'chef de projet':esc(u.dept)}</small></span><b>⭐ ${score(u.id)} pts</b></div>${band(ub(u.id))}</div>`).join('')}<h4 style="margin-top:18px">chef de projet et vis à vis</h4>${st.map(u=>`<div class="tr" style="gap:10px;border-top:1px solid #f4dcdc;padding:8px 0">${av(u,40)}<span><b>${esc(u.name)}</b><br><small>${RN[u.role]}${u.dept?' · '+esc(u.dept):''}</small></span></div>`).join('')}</div>
+<div><span class="lab">votes : horaires de réunion</span>${mg?`<div class="card"><input id="vq" placeholder="Question (ex : réunion de jeudi)" style="width:100%;margin-bottom:8px"><input id="vo" placeholder="Horaires séparés par des virgules" style="width:100%;margin-bottom:8px"><button class="b" onclick="addV()">créer le vote</button></div>`:''}
+${S.votes.map(v=>`<div class="card"><h4>${esc(v.q)}${mg?`<button class="s pt" aria-label="Supprimer le vote" onclick="delV(${v.id})">✕</button>`:''}</h4>${v.o.map((o,i)=>`<div style="margin:8px 0"><div class="tr"><button class="b ${o.v.includes(S.me)?'on':''}" onclick="vote(${v.id},${i})">${esc(o.l)}</button><span>${o.v.length} vote(s)</span></div><div class="hint" style="font-variant:normal">${o.v.map(x=>esc(U(x)?.name)).join(', ')||'personne pour l’instant'}</div></div>`).join('')}</div>`).join('')||'<p class="hint">Aucun vote en cours.</p>'}</div></div>`},
+msgs(){const l=S.msgs.filter(m=>isChef()||m.dept==me().dept).reverse();return`<span class="lab">Messages reçus</span>${l.map(m=>`<div class="msg"><b>${m.type}</b> – ${esc(m.from)} <small>(${esc(m.dept)} · ${m.date})</small><br>${esc(m.text)}</div>`).join('')||'<p class="hint">Aucun message.</p>'}`},
+notes(){return`<span class="lab">Notes privées</span><textarea style="min-height:260px;margin-top:14px" oninput="noteSave(this.value)">${esc(S.notes[S.me]||'')}</textarea><p class="hint">Visibles uniquement par vous.</p>`},
+add(){const r=AR;return`${roles()}${r?`<div style="display:flex;gap:40px;flex-wrap:wrap;justify-content:center;align-items:flex-start"><span class="lab">${RN[r]} :</span>${form(r,'addU()','ajouter')}</div>`:''}<div style="margin-top:30px">${S.users.map(u=>`<div class="tr">${av(u,30)}<span>${esc(u.name)}</span><small>${RN[u.role]} ${esc(u.dept)}</small><small>${esc(u.email||'')}</small>${u.id==S.me?'':DEL==u.id?`<button class="b r" onclick="delU(${u.id})">confirmer la suppression</button><button class="s" onclick="DEL=null;draw()">annuler</button>`:`<button class="s" aria-label="Supprimer ${esc(u.name)}" onclick="DEL=${u.id};draw()">✕</button>`}</div>`).join('')}</div>`},
+notifs(){const l=myN();l.forEach(n=>{if(!n.seen.includes(S.me)){n.seen.push(S.me);FB.set('notifs',n._id,{seen:n.seen},1)}});return`<span class="lab">notifications</span><p class="hint">Retards : une tâche non terminée après son échéance.</p>${l.map(n=>`<div class="msg">⏰ ${esc(n.text)} <small>${n.date}</small></div>`).join('')||'<p class="hint">Aucun retard.</p>'}`},
+proto(){const rh=me()&&me().dept=='RH'&&['vis','assist'].includes(me().role);return`<span class="lab">protocole</span>${rh?`<p class="hint">Vis à vis RH : vous pouvez ajouter ou modifier le protocole.</p><textarea style="min-height:260px" oninput="protoSave(this.value)">${esc(S.proto||'')}</textarea>`:`<div class="msg" style="white-space:pre-wrap;margin-top:14px">${esc(S.proto)||'Le protocole sera ajouté par le vis à vis RH.'}</div>`}`}};
+function toast(m){const e=document.createElement('div');e.textContent=m;e.style.cssText='position:fixed;left:50%;bottom:60px;transform:translateX(-50%);background:#8f689b;color:#fff;padding:10px 18px;z-index:70;font-variant:normal';document.body.appendChild(e);setTimeout(()=>e.remove(),2600)}
+async function unlock(){const g=GATE,pw=$('#gp').value;if(g.boot){const n=$('#gn').value.trim();if(!n||pw.length<4){toast('Nom et mot de passe (4 caractères min.) requis.');return}const salt=rnd(),h=await sha(salt,pw),p={id:uid(),name:n,role:'chef',dept:'',email:g.email,photo:''};await FB.set('secrets',g.email,{salt,hash:h});await FB.set('members',g.email,p);LS.s('fa_ok_'+g.email,h);enter(p)}else{if(await sha(g.sec.salt,pw)!==g.sec.hash){toast('Mot de passe incorrect.');return}LS.s('fa_ok_'+g.email,g.sec.hash);enter(g.p)}}
+async function onUser(u){try{if(!u)return;const e=u.email.toLowerCase(),p=await FB.get('members',e);if(!p){if(e==FB.chef){GATE={boot:1,email:e};show('gate')}else{toast('Adresse non autorisée : demandez au chef de projet de l’ajouter.');FB.signOut()}return}const sec=await FB.get('secrets',e);GATE={email:e,p,sec};if(sec&&LS.g('fa_ok_'+e)===sec.hash)enter(p);else show('gate')}catch(x){toast('Erreur : '+(x.code||x.message))}}
+function enter(m){S.me=m.id;S.users=[m];startSync(m);show('dash')}
+let TM;function sync(){clearTimeout(TM);TM=setTimeout(function f(){if(document.activeElement?.matches('input:not([type=checkbox]):not([type=file]),textarea,select')){TM=setTimeout(f,1500);return}draw()},250)}
+function startSync(m){const W=FB.watch,L=(k,f)=>W(k,null,f),by=(a,k)=>a.sort((x,y)=>x[k]-y[k]);
+L('members',a=>{S.users=a;if(!U(S.me))logout();else sync()});
+L('stats',a=>{S.stats={};a.forEach(x=>S.stats[x.uid]=x);sync()});
+L('depts',a=>{D.forEach(d=>S.depts[d]={m:'',o:''});a.forEach(x=>S.depts[x._id]={m:x.m||'',o:x.o||''});sync()});
+L('votes',a=>{S.votes=by(a,'id');sync()});L('news',a=>{S.news=by(a,'id').reverse();sync()});
+L('cfg',a=>{a.forEach(x=>{if(x._id=='protocol')S.proto=x.text||'';if(x._id=='motd')S.motd={uid:x.uid,date:x.date}});sync()});
+W('tasks',m.role=='chef'?null:m.role=='membre'?['owner','==',m.email]:['dept','==',m.dept],a=>{S.tasks=a;sync()});
+if(m.role!='membre'){const g=m.role=='chef'?null:['dept','==',m.dept];W('msgs',g,a=>{S.msgs=by(a,'id');sync()});W('notifs',g,a=>{S.notifs=by(a,'id');sync()})}
+FB.get('notes',m.email).then(d=>{S.notes[m.id]=d?.text||''})}
+function saveD(i){const d=D[i];S.depts[d]={m:$('#m'+i).value,o:$('#o'+i).value};FB.set('depts',d,S.depts[d]);draw()}
+function sendMsg(){const x=$('#mx').value.trim();if(!x)return;const mid=uid();FB.set('msgs',''+mid,{id:mid,from:me().name,dept:me().dept,owner:me().email,type:'Message',text:x,date:T});$('#mx').value='';toast('Message envoyé à votre vis-à-vis et au chef de projet.')}
+function addV(){const q=$('#vq').value.trim(),o=$('#vo').value.split(',').map(s=>s.trim()).filter(Boolean);if(!q||o.length<2)return;const v={id:uid(),q,o:o.map(l=>({l,v:[]}))};FB.set('votes',''+v.id,v)}
+function vote(id,i){if(!S.me){toast('Connectez-vous pour voter.');return}const v=S.votes.find(x=>x.id==id),had=v.o[i].v.includes(S.me);v.o.forEach(o=>o.v=o.v.filter(x=>x!=S.me));if(!had)v.o[i].v.push(S.me);FB.set('votes',''+id,{o:v.o},1);draw()}
+const rnd=()=>[...crypto.getRandomValues(new Uint32Array(3))].join('');
+async function sha(a,b){const h=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(a+b));return[...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,'0')).join('')}
+async function addU(){const n=$('#an').value.trim(),e=$('#ae').value.trim().toLowerCase(),w=$('#ap').value.trim(),r=AR=='vis'?$('#rp').value:AR;if(!n||!w||!e.includes('@')){toast('Nom, Gmail et mot de passe sont obligatoires.');return}if(S.users.some(u=>u.email==e)){toast('Cette adresse existe déjà.');return}const salt=rnd(),p={id:uid(),name:n,role:r,dept:r=='chef'?'':$('#ad').value,email:e,photo:''};await FB.set('secrets',e,{salt,hash:await sha(salt,w)});await FB.set('members',e,p);toast('Membre ajouté : donnez-lui son mot de passe.')}
+function checkLate(){if(!isMgr())return;S.tasks.forEach(t=>{if(!t.done&&t.due<T&&!LATE.has(t.id)&&!S.notifs.some(n=>n.tid==t.id)){LATE.add(t.id);const u=U(t.uid);if(u)FB.set('notifs','late_'+t.id,{id:t.id,tid:t.id,uid:u.id,dept:u.dept,text:`${u.name} n’a pas terminé « ${t.t} » (échéance ${t.due}).`,date:T,seen:[]})}})}
+const myN=()=>{const m=me();return m?S.notifs.filter(n=>m.role=='chef'||(['vis','assist'].includes(m.role)&&m.dept==n.dept)).slice().reverse():[]};
+function addN(){const x=$('#nn').value.trim();if(!x)return;const n={id:uid(),text:x,by:me().name,date:T};FB.set('news',''+n.id,n)}
+function delN(i){FB.del('news',''+i)}
+function delV(i){FB.del('votes',''+i)}
+async function delU(i){const u=U(i);if(!u||i==S.me)return;await FB.delMany([['members',u.email],['secrets',u.email],['stats',u.email],...S.tasks.filter(t=>t.uid==i).map(t=>['tasks',''+t.id])]);DEL=null;toast('Membre supprimé.')}
+function setMotd(){FB.set('cfg','motd',{uid:+$('#mo').value,date:T})}
+let NT,PT;function noteSave(v){S.notes[S.me]=v;clearTimeout(NT);NT=setTimeout(()=>FB.set('notes',me().email,{text:v}),600)}
+function protoSave(v){S.proto=v;clearTimeout(PT);PT=setTimeout(()=>FB.set('cfg','protocol',{text:v}),600)}
+function photo(inp){const f=inp.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const c=document.createElement('canvas');c.width=c.height=160;const m=Math.min(im.width,im.height);c.getContext('2d').drawImage(im,(im.width-m)/2,(im.height-m)/2,m,m,0,0,160,160);me().photo=c.toDataURL('image/jpeg',.8);FB.set('members',me().email,{photo:me().photo},1);draw()};im.onerror=()=>toast('Image non valide.');im.src=r.result};r.readAsDataURL(f)}
+function draw(){checkLate();const m=me();
+const mo=S.motd&&S.motd.date==T&&U(S.motd.uid);$('#motd').hidden=!mo;if(mo)$('#motd').innerHTML=`🌸 <b>membre du jour : ${esc(mo.name)}</b> 👏👏`;
+const nw=S.news[0];$('#newsb').hidden=!nw;if(nw)$('#newsb').innerHTML='📢 <b>'+esc(nw.text)+'</b>';
+$('#pre').innerHTML=V=='dash'?'':(V=='home'?`<button class="b r" onclick="go('proto')">protocole</button>`:'')+`<button class="b r" onclick="go('team')">teamFA</button>`;
+$('#pu').innerHTML=V=='home'?`<span class="flw">🌸</span><div class="slog">Tout le projet,<br>en un coup d’œil.<br>« Organiser autrement »</div><span class="flw">🌸</span>`:'';
+$('#ft').innerHTML='<span class="snow">❄</span>'+(V=='gate'?`<span class="hint">Connexion Google réussie : entrez le mot de passe donné par le chef de projet.</span>`:'')+(m?`<span>${esc(m.name)} · <button class="s" onclick="logout()">déconnexion</button></span>`:'');
+$('#main').innerHTML=V_[V]();window.scrollTo(0,0)}
+load();addEventListener('fbready',()=>FB.onUser(onUser));window.addEventListener('hashchange',()=>{const h=location.hash.slice(1)||'home';if(h!==V)show(h)});show('home');
+</script>
+<script type="module" src="firebase-layer.js"></script></body></html>

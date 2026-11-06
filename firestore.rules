@@ -1,0 +1,56 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{db}/documents {
+    function signed() { return request.auth != null && request.auth.token.email_verified == true; }
+    function em() { return request.auth.token.email.lower(); }
+    function has() { return exists(/databases/$(db)/documents/members/$(em())); }
+    function prof() { return get(/databases/$(db)/documents/members/$(em())).data; }
+    function chef() { return signed() && has() && prof().role == 'chef'; }
+    function vis() { return signed() && has() && prof().role in ['vis', 'assist']; }
+    function mgr() { return chef() || vis(); }
+    function myDept(d) { return vis() && prof().dept == d; }
+    function boot() { return signed() && em() == 'chef.projet@gmail.com'; }  // = CHEF_EMAIL
+
+    match /members/{e} {
+      allow read: if signed();
+      allow create: if chef() || (boot() && e == em());
+      allow update: if chef() || (signed() && e == em() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['photo']));
+      allow delete: if chef();
+    }
+    match /secrets/{e} {
+      allow read: if signed() && (e == em() || chef());
+      allow create, update: if chef() || (boot() && e == em());
+      allow delete: if chef();
+    }
+    match /tasks/{i} {
+      allow read: if signed() && (resource.data.owner == em() || chef() || myDept(resource.data.dept));
+      allow create: if chef() || myDept(request.resource.data.dept);
+      allow update: if (chef() || myDept(resource.data.dept)) && !request.resource.data.diff(resource.data).affectedKeys().hasAny(['done'])
+                    || (signed() && resource.data.owner == em() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['done']));
+      allow delete: if chef() || myDept(resource.data.dept);
+    }
+    match /stats/{e} {
+      allow read: if signed();
+      allow write: if signed() && (e == em() || chef() || myDept(request.resource.data.dept));
+    }
+    match /depts/{d} { allow read: if signed(); allow write: if myDept(d); }
+    match /msgs/{i} {
+      allow create: if signed() && request.resource.data.owner == em();
+      allow read: if chef() || myDept(resource.data.dept);
+    }
+    match /notes/{e} { allow read, write: if signed() && e == em(); }
+    match /votes/{i} {
+      allow read, update: if signed();
+      allow create, delete: if mgr();
+    }
+    match /news/{i} { allow read: if signed(); allow write: if mgr(); }
+    match /notifs/{i} {
+      allow read, update: if chef() || myDept(resource.data.dept);
+      allow create: if mgr();
+    }
+    match /cfg/{k} {
+      allow read: if signed();
+      allow write: if (k == 'motd' && chef()) || (k == 'protocol' && vis() && prof().dept == 'RH');
+    }
+  }
+}
