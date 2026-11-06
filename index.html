@@ -68,6 +68,10 @@ main{width:100%;max-width:1200px;margin:0 auto}img,textarea{max-width:100%}
 <footer id="ft"></footer></div>
 <div id="ovh"></div>
 <script>
+/* Garde-fou : remplacé par firebase-layer.js quand Firebase se charge correctement */
+window.FB={chef:'',signIn(){toast(location.protocol=='file:'?'Ouvrez le site depuis son adresse Netlify (ou http://localhost), pas en double-cliquant sur index.html.':'Firebase ne s’est pas chargé : vérifiez firebase-config.js et votre connexion.')},signOut:()=>Promise.resolve(),onUser(){}};
+</script>
+<script>
 const T=new Date().toISOString().slice(0,10),Y=new Date(Date.now()-864e5).toISOString().slice(0,10),KEY='facilite_v1';
 const D=['Logistique','Communication','Sponsoring','Recherche & Analyse','RH'];
 const RL={chef:'Chef de projet',vis:'Vis-à-vis',assist:'Assistant',membre:'Membre'};

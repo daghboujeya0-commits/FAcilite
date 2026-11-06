@@ -22,3 +22,12 @@ Ensuite : Firebase > Authentication > Settings > **Domaines autorisés** > ajout
 - Il ajoute chaque membre avec son **adresse Gmail** et un **mot de passe** à lui transmettre.
 - Un membre se connecte avec Google, puis entre son mot de passe (une seule fois par appareil).
 - Mots de passe stockés hachés (SHA-256 + sel), jamais en clair.
+
+## Les boutons Google / s'authentifier ne réagissent pas ?
+- Ne double-cliquez pas sur `index.html` : la connexion Google ne fonctionne pas depuis un fichier local. Utilisez l'adresse Netlify.
+- Test en local : dans le dossier, lancer `python -m http.server 8000`, puis ouvrir http://localhost:8000
+- Un message rouge-violet s'affiche en bas de page pour indiquer la cause (configuration non remplie, domaine non autorisé, pop-up bloquée...).
+
+## Forme exacte de firebase-config.js
+Le fichier doit rester au format ci-dessus (avec `export const`). Si vous collez directement le bloc donné par Firebase
+(`const firebaseConfig = ...` ou `import { initializeApp } ...`), le site ne se charge plus : copiez seulement les 6 valeurs.

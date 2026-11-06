@@ -1,19 +1,25 @@
-// Couche Firebase : connexion Google + Firestore
-import {initializeApp} from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
-import {getAuth,GoogleAuthProvider,signInWithPopup,onAuthStateChanged,signOut} from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
-import {getFirestore,doc,getDoc,setDoc,deleteDoc,onSnapshot,collection,query,where,writeBatch} from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
-import {firebaseConfig,CHEF_EMAIL} from './firebase-config.js';
-const ok=!String(firebaseConfig.apiKey).startsWith('COLLEZ');
-let auth,db;
-if(ok){const app=initializeApp(firebaseConfig);auth=getAuth(app);db=getFirestore(app)}
-const err=e=>{console.error(e);window.toast('Erreur : '+(e.code||e.message))};
-window.FB={chef:(CHEF_EMAIL||'').toLowerCase(),
- signIn:()=>ok?signInWithPopup(auth,new GoogleAuthProvider()).catch(err):window.toast('Renseignez d’abord firebase-config.js'),
- signOut:()=>ok?signOut(auth):Promise.resolve(),
- onUser:cb=>ok&&onAuthStateChanged(auth,cb),
- get:async(c,i)=>{const d=await getDoc(doc(db,c,i));return d.exists()?d.data():null},
- set:(c,i,d,m)=>setDoc(doc(db,c,i),d,{merge:!!m}).catch(err),
- del:(c,i)=>deleteDoc(doc(db,c,i)).catch(err),
- delMany:l=>{const b=writeBatch(db);l.forEach(([c,i])=>b.delete(doc(db,c,i)));return b.commit().catch(err)},
- watch:(c,f,cb)=>onSnapshot(f?query(collection(db,c),where(...f)):collection(db,c),s=>cb(s.docs.map(d=>({...d.data(),_id:d.id}))),err)};
+// Couche Firebase : connexion Google + Firestore (affiche clairement la cause en cas d'échec)
+const V='10.14.1',URL_=n=>`https://www.gstatic.com/firebasejs/${V}/firebase-${n}.js`;
+const note=m=>{console.error(m);const e=document.createElement('div');e.textContent=m;e.style.cssText='position:fixed;left:50%;bottom:60px;transform:translateX(-50%);max-width:92vw;background:#8f689b;color:#fff;padding:12px 18px;z-index:99;font:16px Georgia,serif;cursor:pointer';e.onclick=()=>e.remove();document.body.appendChild(e);setTimeout(()=>e.remove(),12000)};
+let ok=false,why='',auth,db,G={},F={},chef='';
+try{
+  const C=await import('./firebase-config.js').catch(e=>{throw new Error('firebase-config.js est illisible ('+e.message+'). Il doit commencer par : export const firebaseConfig = {')});
+  const cfg=C.firebaseConfig||C.default;
+  if(!cfg)throw new Error('firebase-config.js : il manque « export const firebaseConfig = { ... } ».');
+  if(String(cfg.apiKey).startsWith('COLLEZ'))throw new Error('Renseignez d’abord firebase-config.js avec votre configuration Firebase.');
+  chef=(C.CHEF_EMAIL||'').toLowerCase();
+  const [A,Au,Fs]=await Promise.all([import(URL_('app')),import(URL_('auth')),import(URL_('firestore'))]);
+  const app=A.initializeApp(cfg);auth=Au.getAuth(app);db=Fs.getFirestore(app);G=Au;F=Fs;ok=true;
+}catch(e){why=e.message||String(e)}
+const err=e=>note('Erreur : '+(e.code||e.message));
+window.FB={chef,
+ signIn:()=>ok?G.signInWithPopup(auth,new G.GoogleAuthProvider()).catch(err):note(why),
+ signOut:()=>ok?G.signOut(auth):Promise.resolve(),
+ onUser:cb=>ok&&G.onAuthStateChanged(auth,cb),
+ get:async(c,i)=>{const d=await F.getDoc(F.doc(db,c,i));return d.exists()?d.data():null},
+ set:(c,i,d,m)=>F.setDoc(F.doc(db,c,i),d,{merge:!!m}).catch(err),
+ del:(c,i)=>F.deleteDoc(F.doc(db,c,i)).catch(err),
+ delMany:l=>{const b=F.writeBatch(db);l.forEach(([c,i])=>b.delete(F.doc(db,c,i)));return b.commit().catch(err)},
+ watch:(c,f,cb)=>F.onSnapshot(f?F.query(F.collection(db,c),F.where(...f)):F.collection(db,c),s=>cb(s.docs.map(d=>({...d.data(),_id:d.id}))),err)};
 window.dispatchEvent(new Event('fbready'));
+if(!ok)note(why);
