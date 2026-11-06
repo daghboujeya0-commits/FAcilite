@@ -17,8 +17,8 @@ window.FB={chef,
  signOut:()=>ok?G.signOut(auth):Promise.resolve(),
  onUser:cb=>ok&&G.onAuthStateChanged(auth,cb),
  get:async(c,i)=>{const d=await F.getDoc(F.doc(db,c,i));return d.exists()?d.data():null},
- set:(c,i,d,m)=>F.setDoc(F.doc(db,c,i),d,{merge:!!m}).catch(err),
- del:(c,i)=>F.deleteDoc(F.doc(db,c,i)).catch(err),
+ set:(c,i,d,m)=>{try{return F.setDoc(F.doc(db,c,i),JSON.parse(JSON.stringify(d)),{merge:!!m}).catch(err)}catch(e){err(e)}},
+ del:(c,i)=>{try{return F.deleteDoc(F.doc(db,c,i)).catch(err)}catch(e){err(e)}},
  delMany:l=>{const b=F.writeBatch(db);l.forEach(([c,i])=>b.delete(F.doc(db,c,i)));return b.commit().catch(err)},
  watch:(c,f,cb)=>F.onSnapshot(f?F.query(F.collection(db,c),F.where(...f)):F.collection(db,c),s=>cb(s.docs.map(d=>({...d.data(),_id:d.id}))),err)};
 window.dispatchEvent(new Event('fbready'));
