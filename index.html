@@ -156,6 +156,7 @@ function vote(id,i){if(!S.me){toast('Connectez-vous pour voter.');return}const v
 const rnd=()=>[...crypto.getRandomValues(new Uint32Array(3))].join('');
 async function sha(a,b){const h=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(a+b));return[...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,'0')).join('')}
 async function addU(){const n=$('#an').value.trim(),e=$('#ae').value.trim().toLowerCase(),w=$('#ap').value.trim(),r=AR=='vis'?$('#rp').value:AR;if(!n||!w||!e.includes('@')){toast('Nom, Gmail et mot de passe sont obligatoires.');return}if(S.users.some(u=>u.email==e)){toast('Cette adresse existe déjà.');return}const salt=rnd(),p={id:uid(),name:n,role:r,dept:r=='chef'?'':$('#ad').value,email:e,photo:''};await FB.set('secrets',e,{salt,hash:await sha(salt,w)});await FB.set('members',e,p);toast('Membre ajouté : donnez-lui son mot de passe.')}
+const LATE=new Set();
 function checkLate(){if(!isMgr())return;S.tasks.forEach(t=>{if(!t.done&&t.due<T&&!LATE.has(t.id)&&!S.notifs.some(n=>n.tid==t.id)){LATE.add(t.id);const u=U(t.uid);if(u)FB.set('notifs','late_'+t.id,{id:t.id,tid:t.id,uid:u.id,dept:u.dept,text:`${u.name} n’a pas terminé « ${t.t} » (échéance ${t.due}).`,date:T,seen:[]})}})}
 const myN=()=>{const m=me();return m?S.notifs.filter(n=>m.role=='chef'||(['vis','assist'].includes(m.role)&&m.dept==n.dept)).slice().reverse():[]};
 function addN(){const x=$('#nn').value.trim();if(!x)return;const n={id:uid(),text:x,by:me().name,date:T};FB.set('news',''+n.id,n)}
